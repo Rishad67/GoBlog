@@ -137,5 +137,14 @@ func (a *goBlog) webmentionAdminAction(w http.ResponseWriter, r *http.Request) {
 	if redirectTo == "" {
 		redirectTo = "."
 	}
+	// OpenRefactory Warning:
+	// Possible URL Redirection To Untrusted Site (Open Redirect)!
+	// Path:
+	//	File: webmentionAdmin.go, Line: 136
+	//		redirectTo := r.FormValue("redir")
+	//		Variable 'redirectTo' is assigned a tainted value from an external source.
+	//	File: webmentionAdmin.go, Line: 140
+	//		http.Redirect(w, r, redirectTo, http.StatusFound)
+	//		Tainted information is used in a sink.
 	http.Redirect(w, r, redirectTo, http.StatusFound)
 }
